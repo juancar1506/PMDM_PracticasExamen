@@ -80,7 +80,7 @@ public class PersonajesAdapter extends RecyclerView.Adapter<PersonajesAdapter.Pe
         @Override
         public void onClick(View v) {
             if (clickListener != null) {
-                clickListener.onClick(v, respuesta.get(getBindingAdapterPosition()).getID());
+                clickListener.onClick(v, respuesta.get(getBindingAdapterPosition()).getId());
             }
         }
     }

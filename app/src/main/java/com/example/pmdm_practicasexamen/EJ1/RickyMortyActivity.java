@@ -30,7 +30,6 @@ public class RickyMortyActivity extends AppCompatActivity {
     int page_inicial = 1;
     int page_final;
     int page_actual = 1;
-    String prev,next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +54,6 @@ public class RickyMortyActivity extends AppCompatActivity {
                 Log.d("DATARESPONSE",data.getInfo().getNext());
                 adapter.setRespuesta(data.getCharacters());
                 page_final = data.getInfo().getPages();
-                prev = data.getInfo().getPrev();
-                next = data.getInfo().getNext();
 
             }
         });
@@ -64,40 +61,18 @@ public class RickyMortyActivity extends AppCompatActivity {
         anterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(page_actual != page_inicial) {
-                    cm.listarPersonajes(page_actual - 1);
-                    data = cm.getCharactersResponseLiveData();
-                    data.observe((LifecycleOwner) getParent().getApplicationContext(), (data) -> {
-                        if (data != null) {
-                            Log.d("DATARESPONSE",data.getInfo().getNext());
-                            adapter.setRespuesta(data.getCharacters());
-                            page_final = data.getInfo().getPages();
-                            prev = data.getInfo().getPrev();
-                            next = data.getInfo().getNext();
-
-                        }
-                    });
-                }
+                if(page_actual >= page_inicial)
+                cm.listarPersonajes(page_actual - 1);
+                page_actual--;
             }
         });
 
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (page_actual < page_final) {
-                    cm.listarPersonajes(page_actual + 1);
-                    data = cm.getCharactersResponseLiveData();
-                    data.observe((LifecycleOwner) getParent().getApplicationContext(), (data) -> {
-                        if (data != null) {
-                            Log.d("DATARESPONSE", data.getInfo().getNext());
-                            adapter.setRespuesta(data.getCharacters());
-                            page_final = data.getInfo().getPages();
-                            prev = data.getInfo().getPrev();
-                            next = data.getInfo().getNext();
-
-                        }
-                    });
-
+                if (page_actual <= page_final) {
+                    cm.listarPersonajes(page_actual +1);
+                    page_actual++;
                 }
             }
         });

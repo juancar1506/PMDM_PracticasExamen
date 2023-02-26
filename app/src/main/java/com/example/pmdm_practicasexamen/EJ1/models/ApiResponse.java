@@ -1,5 +1,6 @@
 package com.example.pmdm_practicasexamen.EJ1.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -7,8 +8,11 @@ import java.util.List;
 public class ApiResponse {
 
     @SerializedName("info")
+    @Expose
     private Info info;
+
     @SerializedName("results")
+    @Expose
     private List<Character> characters;
 
     public Info getInfo() { return info; }

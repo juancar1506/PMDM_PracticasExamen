@@ -1,15 +1,22 @@
 package com.example.pmdm_practicasexamen.EJ1.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Info {
 
     @SerializedName("count")
+    @Expose
     private long count;
+
     @SerializedName("pages")
+    @Expose
     private int pages;
+
     @SerializedName("next")
+    @Expose
     private String next;
+
     @SerializedName("prev")
     private String prev;
 
