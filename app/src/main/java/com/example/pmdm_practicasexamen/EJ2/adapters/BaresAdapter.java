@@ -28,24 +28,21 @@ public class BaresAdapter extends RecyclerView.Adapter<BaresAdapter.BaresResultH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaresAdapter.BaresResultHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaresResultHolder holder, int position) {
         BaresResponse bar = result.get(position);
 
         holder.nombre.setText(bar.getNombre());
         holder.descripcion.setText(bar.getDescripcion());
-        holder.estrellas.setText(bar.getEstrellas());
+        holder.estrellas.setText(String.format(""+bar.getEstrellas()));
     }
 
     @Override
-    public int getItemCount() {
-        return this.result.size();
-    }
+    public int getItemCount() { return this.result.size(); }
 
-    public void setResult (List<BaresResponse> bares) {
-        this.result = bares;
+    public void setResult(List<BaresResponse> result) {
+        this.result = result;
         notifyDataSetChanged();
     }
-
 
     class BaresResultHolder extends RecyclerView.ViewHolder {
         private TextView nombre;

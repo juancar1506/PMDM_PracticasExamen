@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.pmdm_practicasexamen.EJ2.models.BaresResponse;
 import com.example.pmdm_practicasexamen.EJ2.services.BaresService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -16,17 +18,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaresRepository {
-    private static final String BASE_URL = "http://127.0.0.1:8000/pmdm/api/";
+    private static final String BASE_URL = "http://IP:PORT/pmdm/api/";
+    private static final String FORMAT_FECHA = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     private BaresService baresService;
     private MutableLiveData<List<BaresResponse>> baresResponseMutableLiveData;
 
     public BaresRepository () {
         baresResponseMutableLiveData = new MutableLiveData<>();
-
+        Gson gson = new GsonBuilder().setDateFormat(FORMAT_FECHA).create();
         baresService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(BaresService.class);
     }

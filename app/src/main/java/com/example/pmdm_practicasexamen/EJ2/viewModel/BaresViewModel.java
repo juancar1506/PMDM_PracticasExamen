@@ -26,4 +26,7 @@ public class BaresViewModel  extends AndroidViewModel {
         baresRepository.listadoBares(estrellas);
     }
 
+    public LiveData<List<BaresResponse>> getBaresListLiveData() {
+        return baresListLiveData;
+    }
 }
