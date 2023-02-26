@@ -10,7 +10,7 @@ import java.util.List;
 public class Character {
     @SerializedName("id")
     @Expose
-    private long id;
+    private int id;
 
     @SerializedName("name")
     @Expose
@@ -55,11 +55,11 @@ public class Character {
     @Expose
     private Date created;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

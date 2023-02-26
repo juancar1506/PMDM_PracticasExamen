@@ -24,7 +24,7 @@ public class PersonajesAdapter extends RecyclerView.Adapter<PersonajesAdapter.Pe
 
     // Para acceder al detalle
     public interface ItemClickListener {
-        void onClick(View view, long id);
+        void onClick(View view, int id);
     }
 
     private ItemClickListener clickListener;

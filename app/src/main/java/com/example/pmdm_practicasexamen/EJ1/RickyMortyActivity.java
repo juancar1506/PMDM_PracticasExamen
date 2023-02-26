@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +20,7 @@ import com.example.pmdm_practicasexamen.EJ1.viewModels.CharactersViewModel;
 import com.example.pmdm_practicasexamen.R;
 
 public class RickyMortyActivity extends AppCompatActivity {
-
+    public static String EXTRA_ID = "id_recibido";
     RecyclerView recyclerView;
     PersonajesAdapter adapter;
     CharactersViewModel cm;
@@ -46,7 +47,7 @@ public class RickyMortyActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         cm = new ViewModelProvider(this).get(CharactersViewModel.class);
-        cm.init();
+
         cm.listarPersonajes(page_inicial);
         data = cm.getCharactersResponseLiveData();
         data.observe(this, (data) -> {
@@ -61,9 +62,10 @@ public class RickyMortyActivity extends AppCompatActivity {
         anterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(page_actual >= page_inicial)
-                cm.listarPersonajes(page_actual - 1);
-                page_actual--;
+                if(page_actual >= page_inicial) {
+                    cm.listarPersonajes(page_actual - 1);
+                    page_actual--;
+                }
             }
         });
 
@@ -74,6 +76,15 @@ public class RickyMortyActivity extends AppCompatActivity {
                     cm.listarPersonajes(page_actual +1);
                     page_actual++;
                 }
+            }
+        });
+
+        adapter.setClickListener(new PersonajesAdapter.ItemClickListener() {
+            @Override
+            public void onClick(View view, int id) {
+                Intent detalle = new Intent(getApplicationContext(), DetalleActivity.class);
+                detalle.putExtra(EXTRA_ID,id);
+                startActivity(detalle);
             }
         });
     }

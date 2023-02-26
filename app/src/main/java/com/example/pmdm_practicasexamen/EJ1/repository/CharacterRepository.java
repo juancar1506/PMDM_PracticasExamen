@@ -19,9 +19,11 @@ public class CharacterRepository {
 
     private RickMortyService characterService;
     private MutableLiveData<ApiResponse> characterResponseMutableLiveData;
+    private MutableLiveData<Character> personajeResponseMutableLiveData;
 
     public CharacterRepository() {
         characterResponseMutableLiveData = new MutableLiveData<>();
+        personajeResponseMutableLiveData = new MutableLiveData<>();
 
         characterService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -30,13 +32,13 @@ public class CharacterRepository {
                 .create(RickMortyService.class);
     }
 
-    public void listadoCaracters(int page) {
+    public void listadoCaracters (int page) {
         // Petición
         characterService
                 .getCharacters(page)
                 .enqueue(new Callback<ApiResponse>() {
                     @Override
-                    public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    public void onResponse (Call<ApiResponse> call, Response<ApiResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             Log.d("Buscando","Busacando personajes");
                             // Se asignan los valores al mutabledata
@@ -47,7 +49,7 @@ public class CharacterRepository {
                     }
 
                     @Override
-                    public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    public void onFailure (Call<ApiResponse> call, Throwable t) {
                         // No hay valor.
                         Log.d("errorRepositroy", "Fallo en el repositorio");
                         Log.d("errorRepositroy", t.getMessage());
@@ -56,7 +58,29 @@ public class CharacterRepository {
                 });
     }
 
+    public void DetallePersonaje (int id) {
+        characterService.getCharacter(id).enqueue(new Callback<Character>() {
+            @Override
+            public void onResponse(Call<Character> call, Response<Character> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    personajeResponseMutableLiveData.postValue(response.body());
+                } else {
+                    personajeResponseMutableLiveData.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Character> call, Throwable t) {
+                personajeResponseMutableLiveData.postValue(null);
+            }
+        });
+    }
+
     public MutableLiveData<ApiResponse> getCharacterResponseMutableLiveData() {
         return characterResponseMutableLiveData;
+    }
+
+    public MutableLiveData<Character> getPersonajeResponseMutableLiveData() {
+        return personajeResponseMutableLiveData;
     }
 }
