@@ -15,6 +15,13 @@
         android:theme="@style/Theme.PMDM_PracticasExamen"
         tools:targetApi="31">
         <activity
+            android:name=".BaresActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".EJ1.DetalleActivity"
             android:exported="false">
             <meta-data
