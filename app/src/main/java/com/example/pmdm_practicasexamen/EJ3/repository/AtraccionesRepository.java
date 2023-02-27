@@ -17,7 +17,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AtraccionesRepository {
-    private static final String BASE_URL = "http://192.168.1.44:8000/pmdm/api/";
+    private static final String BASE_URL = "http://IP:PORT/pmdm/api/";
 
     private AtraccionService atraccionService;
     private MutableLiveData<List<AtraccionesResponse>> atraccionesMutableLiveData;
